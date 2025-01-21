@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <!--    <springProperty scope="context" name="env" source="spring.profiles.active" defaultValue="dev"/>-->
+  <!--    <springProperty scope="context" name="log_file_path" source="logging.file.path"/>-->
+  <!--    <springProperty scope="context" name="log_file_name" source="logging.file.name"/>-->
+  <!--    <property resource="application.yml"/>-->
+  <!--    <property name="LOG_FILE" value="logs/${spring.application.name}.log"/>-->
+  <!--    <property name="LOG_PATH" value=""/>-->
+
+  <!-- 彩色日志依赖的渲染类 -->
+  <!--    <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter"/>-->
+  <property name="log_file_path" value="d:/log"/>
+  <property name="log_file_name" value="CliBench"/>
+  <!--    <property name="local_pattern"-->
+  <!--              value="${CONSOLE_LOG_PATTERN:-%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(-&#45;&#45;){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>-->
+  <property name="local_pattern"
+            value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} : %msg%n"/>
+
+  <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>${local_pattern}</pattern>
+    </encoder>
+  </appender>
+
+  <appender name="FILE_DEBUG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>${log_file_path}/${log_file_name}-debug.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+      <fileNamePattern>${log_file_path}/${log_file_name}-debug.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+      <maxHistory>30</maxHistory>
+      <maxFileSize>10MB</maxFileSize>
+      <!-- 达到这个大小后，旧的文件日志将会被异步删除-->
+      <totalSizeCap>500MB</totalSizeCap>
+    </rollingPolicy>
+    <encoder>
+      <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger{36} - %msg%n</pattern>
+    </encoder>
+    <!-- 其他配置 -->
+    <filter class="ch.qos.logback.classic.filter.LevelFilter">
+      <level>DEBUG</level>
+      <onMatch>ACCEPT</onMatch>
+      <onMismatch>DENY</onMismatch>
+    </filter>
+  </appender>
+  <appender name="FILE_INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>${log_file_path}/${log_file_name}-info.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+      <fileNamePattern>${log_file_path}/${log_file_name}-info.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+      <maxHistory>30</maxHistory>
+      <maxFileSize>10MB</maxFileSize>
+      <!-- 达到这个大小后，旧的文件日志将会被异步删除-->
+      <totalSizeCap>500MB</totalSizeCap>
+    </rollingPolicy>
+    <encoder>
+      <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger{36} - %msg%n</pattern>
+    </encoder>
+    <!-- 其他配置 -->
+    <filter class="ch.qos.logback.classic.filter.LevelFilter">
+      <level>INFO</level>
+      <onMatch>ACCEPT</onMatch>
+      <onMismatch>DENY</onMismatch>
+    </filter>
+  </appender>
+  <appender name="FILE_WARN" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>${log_file_path}/${log_file_name}-warn.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+      <fileNamePattern>${log_file_path}/${log_file_name}-warn.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+      <maxHistory>30</maxHistory>
+      <maxFileSize>10MB</maxFileSize>
+      <!-- 达到这个大小后，旧的文件日志将会被异步删除-->
+      <totalSizeCap>500MB</totalSizeCap>
+    </rollingPolicy>
+    <encoder>
+      <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger{36} - %msg%n</pattern>
+    </encoder>
+    <!-- 其他配置 -->
+    <filter class="ch.qos.logback.classic.filter.LevelFilter">
+      <level>WARN</level>
+      <onMatch>ACCEPT</onMatch>
+      <onMismatch>DENY</onMismatch>
+    </filter>
+  </appender>
+  <appender name="FILE_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>${log_file_path}/${log_file_name}-error.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+      <fileNamePattern>${log_file_path}/${log_file_name}-error.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+      <maxHistory>30</maxHistory>
+      <maxFileSize>10MB</maxFileSize>
+      <!-- 达到这个大小后，旧的文件日志将会被异步删除-->
+      <totalSizeCap>500MB</totalSizeCap>
+    </rollingPolicy>
+    <encoder>
+      <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger{36} - %msg%n</pattern>
+    </encoder>
+    <!-- 其他配置 -->
+    <filter class="ch.qos.logback.classic.filter.LevelFilter">
+      <level>ERROR</level>
+      <onMatch>ACCEPT</onMatch>
+      <onMismatch>DENY</onMismatch>
+    </filter>
+  </appender>
+
+  <logger name="io.sipstack" level="INFO"/>
+  <root level="INFO">
+    <appender-ref ref="CONSOLE"/>
+    <appender-ref ref="FILE_DEBUG"/>
+    <appender-ref ref="FILE_INFO"/>
+    <appender-ref ref="FILE_WARN"/>
+    <appender-ref ref="FILE_ERROR"/>
+  </root>
+</configuration>
