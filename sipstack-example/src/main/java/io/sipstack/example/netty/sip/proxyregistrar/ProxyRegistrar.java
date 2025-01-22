@@ -13,7 +13,7 @@ public final class ProxyRegistrar {
 
     public static void main(final String[] args) throws Exception {
         final ProxyRegistrarHandler handler = new ProxyRegistrarHandler();
-        final SimpleSipStack stack = new SimpleSipStack(handler, "10.0.1.28", 5060);
+        final SimpleSipStack stack = new SimpleSipStack(handler, "192.168.8.96", 5060);
         handler.setStack(stack);
         stack.run();
     }

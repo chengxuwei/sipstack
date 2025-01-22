@@ -47,7 +47,7 @@ public final class UAS {
 
     public static void main(final String[] args) throws Exception {
         final UASHandler handler = new UASHandler();
-        new SimpleSipStack(handler, "127.0.0.1", 5060).run();
+        new SimpleSipStack(handler, "192.168.8.96", 5060).run();
     }
 
 }

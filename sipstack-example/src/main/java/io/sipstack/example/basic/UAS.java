@@ -4,6 +4,7 @@
 package io.sipstack.example.basic;
 
 
+import com.alibaba.fastjson2.JSON;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
@@ -46,6 +47,8 @@ public final class UAS extends SimpleChannelInboundHandler<SipMessageEvent>  {
 
     @Override
     protected void channelRead0(final ChannelHandlerContext ctx, final SipMessageEvent event) throws Exception {
+
+        log.info("UAS消息:{}", JSON.toJSONString(event));
         final SipMessage msg = event.getMessage();
 
         // just consume the ACK
@@ -58,7 +61,7 @@ public final class UAS extends SimpleChannelInboundHandler<SipMessageEvent>  {
             final SipResponse response = msg.createResponse(200);
             event.getConnection().send(response);
         }
-        log.info("UAS消息:{}",event);
+
     }
 
     private void start() throws InterruptedException {
@@ -78,7 +81,7 @@ public final class UAS extends SimpleChannelInboundHandler<SipMessageEvent>  {
                     }
                 });
 
-        final InetSocketAddress socketAddress = new InetSocketAddress("127.0.0.1", 5060);
+        final InetSocketAddress socketAddress = new InetSocketAddress("192.168.8.96", 5060);
         b.bind(socketAddress).sync().channel().closeFuture().await();
     }
 

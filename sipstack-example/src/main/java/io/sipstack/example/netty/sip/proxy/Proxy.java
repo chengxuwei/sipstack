@@ -46,7 +46,7 @@ public final class Proxy {
 
     public static void main(final String[] args) throws Exception {
         final ProxyHandler handler = new ProxyHandler();
-        final SimpleSipStack stack = new SimpleSipStack(handler, "127.0.0.1", 5060);
+        final SimpleSipStack stack = new SimpleSipStack(handler, "192.168.8.96", 5060);
         handler.setStack(stack);
         stack.run();
     }
